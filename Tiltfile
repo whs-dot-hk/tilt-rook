@@ -10,4 +10,4 @@ name = "rook-ceph"
 create_namespace(name)
 
 k8s_yaml(helm("charts/rook-ceph", name = "%s-operator" % name, namespace = name))
-k8s_yaml(helm("charts/rook-ceph-cluster", name = "%s-cluster" % name, namespace = name))
+k8s_yaml(helm("charts/rook-ceph-cluster", name = "%s-cluster" % name, namespace = name, values = "cluster.values.yaml"))
