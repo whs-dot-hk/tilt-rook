@@ -1,0 +1,13 @@
+def create_namespace(name):
+    k8s_yaml(blob("""apiVersion: v1
+kind: Namespace
+metadata:
+  name: %s
+""" % name))
+
+name = "rook-ceph"
+
+create_namespace(name)
+
+k8s_yaml(helm("charts/rook-ceph", name = "%s-operator" % name, namespace = name))
+k8s_yaml(helm("charts/rook-ceph-cluster", name = "%s-cluster" % name, namespace = name))
